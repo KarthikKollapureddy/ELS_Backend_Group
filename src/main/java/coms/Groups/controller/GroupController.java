@@ -26,6 +26,7 @@ import com.ELearning.model.RegisterUser;
 
 import coms.Groups.exceptionsGlobal.AnswerAlreadyExists;
 import coms.Groups.exceptionsGlobal.AnswerNotFound;
+import coms.Groups.exceptionsGlobal.AssignmentNotFound;
 import coms.Groups.exceptionsGlobal.QuestionAlreadyExists;
 import coms.Groups.exceptionsGlobal.QuestionNotFound;
 import coms.Groups.message.ResponseFile;
@@ -33,6 +34,7 @@ import coms.Groups.model.AnswerBean;
 import coms.Groups.model.Assignments;
 import coms.Groups.model.FileDB;
 import coms.Groups.model.QuestionBean;
+import coms.Groups.model.Submissions;
 import coms.Groups.service.AnswerService;
 import coms.Groups.service.AssignmentsService;
 import coms.Groups.service.FileService;
@@ -159,5 +161,21 @@ public class GroupController {
 		return new ResponseEntity<Assignments>(assignService.postAssign(ass),HttpStatus.OK);
 		  
 	  }
+	  
+	 @GetMapping("/assignments/get/{groupId}")
+	 public ResponseEntity<List<Assignments>> getAssign(@PathVariable int groupId) throws AssignmentNotFound {
+		 return new ResponseEntity<List<Assignments>>(assignService.getAssignments(groupId),HttpStatus.OK);
+	 }
+	 
+	 @PostMapping("/assignments/submit/{assignId}/{id}")
+	  public ResponseEntity<Submissions> submitAssign(@PathVariable int assignId,@PathVariable int id,@RequestParam("file") MultipartFile file) throws IOException{
+		return new ResponseEntity<Submissions>(assignService.submitAssign(assignId,id,file),HttpStatus.OK);
+		  
+	  }
+	 
+	 @GetMapping("assignments/todo/{userId}")
+	 public ResponseEntity<List<Assignments>> getTodo(@PathVariable int userId){
+		 return new ResponseEntity<List<Assignments>>(assignService.getTodo(userId),HttpStatus.OK);
+	 }
 
 }

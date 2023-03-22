@@ -27,5 +27,10 @@ public class GlobalException {
 	public AnswerNotFound getAnswerError() {
 		return new AnswerNotFound();
 	}
+	@ExceptionHandler(AssignmentNotFound.class)
+	public AssignmentNotFound getAssignError() {
+		return new AssignmentNotFound();
+	}
+	
 
 }
