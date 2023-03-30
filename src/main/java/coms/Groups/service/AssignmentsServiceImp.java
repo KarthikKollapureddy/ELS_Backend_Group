@@ -59,7 +59,7 @@ public class AssignmentsServiceImp implements AssignmentsService {
 	public List<Assignments> getTodo(int userId) {
 		// TODO Auto-generated method stub
 		Date cur=new Date();
-		ResponseEntity<GroupBean[]> res=restTemplate.getForEntity("http://localhost:8787/elearning/api/student/joinedClasses/"+userId,GroupBean[].class);
+		ResponseEntity<GroupBean[]> res=restTemplate.getForEntity("http://localhost:9092/elearning/api/student/joinedClasses/"+userId,GroupBean[].class);
 		List<GroupBean> gr=Arrays.asList(res.getBody());
 		List<Assignments> res1=new ArrayList<>();
 		for(GroupBean sub:gr) {

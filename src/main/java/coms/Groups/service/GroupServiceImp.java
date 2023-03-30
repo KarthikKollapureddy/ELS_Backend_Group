@@ -24,18 +24,18 @@ public class GroupServiceImp implements GroupService {
 	public List<RegisterUser> getInfo(int groupId) {
 		
 		List<RegisterUser> res=new ArrayList<>();
-		GroupBean gr= restTemplate.getForObject("http://localhost:8787/elearning/api/trainer/getClass/"+groupId, GroupBean.class);
+		GroupBean gr= restTemplate.getForObject("http://localhost:8080/elearning/api/trainer/getClass/"+groupId, GroupBean.class);
 		
-		RegisterUser trainer= restTemplate.getForObject("http://localhost:8787/elearning/api/main/userData/"+gr.getTrainerId(), RegisterUser.class);
+		RegisterUser trainer= restTemplate.getForObject("http://localhost:8098/elearning/api/main/userData/"+gr.getTrainerId(), RegisterUser.class);
 		res.add(trainer);
 		
-ResponseEntity<StudentBean[]> response= restTemplate.getForEntity("http://localhost:8787/elearning/api/student/getParticipants/"+groupId,StudentBean[].class);
+ResponseEntity<StudentBean[]> response= restTemplate.getForEntity("http://localhost:9092/elearning/api/student/getParticipants/"+groupId,StudentBean[].class);
 			   
 		
 //		GroupBean[] res = response.getBody();
 	List<StudentBean> stud=Arrays.asList(response.getBody());
 	for(StudentBean s:stud) {
-		RegisterUser st= restTemplate.getForObject("http://localhost:8787/elearning/api/main/userData/"+s.getUserId(), RegisterUser.class);
+		RegisterUser st= restTemplate.getForObject("http://localhost:8098/elearning/api/main/userData/"+s.getUserId(), RegisterUser.class);
 		res.add(st);
 	}
 	return res;
